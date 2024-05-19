@@ -1,12 +1,7 @@
-package Interfaces;
+package Ui;
 
-public interface CookiesInterface {
-    public static void click(int cookies) {
+public interface CookiesUi {
+    public void showCookiesDashboard();
 
-    }
-
-    public void showAutoClick(int triesCount);
-
-    public void showBonus();
 
 }

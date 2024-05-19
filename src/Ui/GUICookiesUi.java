@@ -1,67 +1,84 @@
-package Interfaces;
+package Ui;
+
+import Core.CookiesGame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUICookiesInterface implements CookiesInterface {
+public class GUICookiesUi implements CookiesUi {
+
     private JTextField inputField;
     private JButton submitButton;
 
-    public static void main(String[] args) {
+    private final CookiesGame game;
 
+    public GUICookiesUi(CookiesGame receivedGame) {
+        game = receivedGame;
+        showCookiesDashboard();
+    }
+
+    public void showCookiesDashboard() {
 
         JFrame frame = new JFrame("Cookie clicker");
         JTextField textField;
 
-        Icon icon = new ImageIcon("/Users/emma/Code/test-java/src/assets/cookie.png");
+        String cookieIconPath = "/Users/emma/Code/test-java/src/assets/cookie.png";
+        ImageIcon icon = new ImageIcon(cookieIconPath);
+
+        if (icon.getImageLoadStatus() != java.awt.MediaTracker.COMPLETE) {
+            System.err.println("Error: Cookie icon not found at " + cookieIconPath);
+            return;
+        }
+
         JButton button = new JButton(icon);
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setBounds(40, 80, 70, 69);
+        button.setFocusPainted(false);
 
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        textField = new JTextField(10);
-//        textField.setBounds(10, 100, 200, 40);
 
         JLabel label = new JLabel();
         label.setBounds(10, 150, 300, 40);
         frame.add(label);
-        int counterValue;
 
-        // ActionListener pour le bouton
+        // Initialiser le composant Granny
+        GUIGrannyUI grannyComponent = new GUIGrannyUI(game);
+
+        if (grannyComponent.getGrannyButton() == null || grannyComponent.getGrannyLabel() == null) {
+            System.err.println("Error: Granny component not initialized correctly.");
+            return;
+        }
+
+        frame.add(grannyComponent.getGrannyButton());
+        frame.add(grannyComponent.getGrannyLabel());
+
+        // ActionListener pour le bouton cookie
         button.addActionListener(new ActionListener() {
-            int counterValue;
-
             public void actionPerformed(ActionEvent e) {
-
-                counterValue = counterValue + 1;
-                label.setText("Tes cookies : " + counterValue);
-
+                game.click();
+                label.setText("Your cookies : " + game.getCookies());
             }
         });
 
+        Timer timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                label.setText("Your cookies : " + game.getCookies());
+            }
+        });
+        timer.start();
 
         // Set layout to null for manual positioning
         frame.setLayout(null);
 
-//        frame.add(textField);
         frame.add(button);
 
-        // Set frame size and make it visible
-        frame.setSize(400, 300);
+        // frame size
+        frame.setSize(500, 450);
         frame.setVisible(true);
-
-        System.out.println("Hello world!");
-
-//        Scanner mScanner = new Scanner(System.in);
-//        int first = mScanner.nextInt();
-//        int second = mScanner.nextInt();
-//        System.out.println(first + second);
-//
-//        mScanner.close();
     }
 }
