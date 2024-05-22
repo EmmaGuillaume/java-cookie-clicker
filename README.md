@@ -1,6 +1,6 @@
 # java-cookie-clicker
 
-You can dowload the last version of the app just here : [Last version](https://github.com/votre-utilisateur/votre-repo/releases/latest)
+You can dowload the last version of the app just here : [Last version](https://github.com/EmmaGuillaume/java-cookie-clicker/releases/tag/v1.0.0)
 
 You have to download Java 17
 
