@@ -12,11 +12,13 @@ public class GUIGrannyUI {
     private JLabel grannyLabel;
 
     public GUIGrannyUI(CookiesGame game) {
-        String grannyIconPath = "/Users/emma/Code/test-java/src/assets/granny.png";
-        ImageIcon grannyIcon = new ImageIcon(grannyIconPath);
+
+
+        String grannyIconPath = "/assets/granny.png";
+        ImageIcon grannyIcon = new ImageIcon(getClass().getResource(grannyIconPath));
 
         if (grannyIcon.getImageLoadStatus() != java.awt.MediaTracker.COMPLETE) {
-            System.err.println("Error: Granny icon not found at " + grannyIconPath);
+            System.err.println("Error: farm icon not found at " + grannyIconPath);
             return;
         }
 

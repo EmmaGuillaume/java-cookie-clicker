@@ -23,8 +23,8 @@ public class GUICookiesUi implements CookiesUi {
         JFrame frame = new JFrame("Cookie clicker");
         JTextField textField;
 
-        String cookieIconPath = "/Users/emma/Code/test-java/src/assets/cookie.png";
-        ImageIcon icon = new ImageIcon(cookieIconPath);
+        String cookieIconPath = "/assets/cookie.png";
+        ImageIcon icon = new ImageIcon(getClass().getResource(cookieIconPath));
 
         if (icon.getImageLoadStatus() != java.awt.MediaTracker.COMPLETE) {
             System.err.println("Error: Cookie icon not found at " + cookieIconPath);
@@ -56,6 +56,17 @@ public class GUICookiesUi implements CookiesUi {
 
         frame.add(grannyComponent.getGrannyButton());
         frame.add(grannyComponent.getGrannyLabel());
+
+
+        GUIFarmUI farmComponent = new GUIFarmUI(game);
+        if (farmComponent.getFarmButton() == null || farmComponent.getFarmLabel() == null) {
+            System.err.println("Error: Farm component not initialized correctly.");
+            return;
+        }
+
+        frame.add(farmComponent.getFarmButton());
+        frame.add(farmComponent.getFarmLabel());
+
 
         // ActionListener pour le bouton cookie
         button.addActionListener(new ActionListener() {
